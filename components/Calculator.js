@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text } from 'react-native';
 import styles from '../styles/style.js'
+import { TextInput } from 'react-native';
 
 
 const Calculator = () => {
@@ -9,49 +10,49 @@ const Calculator = () => {
     
     const [number, setNumber] = useState(numbers);
     const [showselection, setShowSelection] = useState(0);
-    const [value1, setValue1] = useState(0);
-    const [value2, setValue2] = useState(0);
+    const [value1, setValue1] = useState('');
+    const [value2, setValue2] = useState('');
+    const [inputFocus, setInputFocus] = useState('value1');
 
-    const handleNumberSelect = (selectedNumber) => {
-        // Logic to handle number selection
-        // check if value1 is empty, if it is, set value1 to selectedNumber
-        if(value1 === 0) {
-        setValue1(selectedNumber)
-        } else if(value2 === 0) {
-            setValue2(selectedNumber)
-        }        
+    const handleInputFocus = (input) => {
+        setInputFocus(input);
+    };
+
+    const handleNumberSelect =(num) => {
+
+        if (inputFocus === 'value1') {
+            setValue1(prev => prev + num.toString());
+        } else if (inputFocus === 'value2') {
+            setValue2(prev => prev + num.toString());
+        }
         
     };
 
     const addValues = (value1, value2) => {
-        sum = value1 + value2; 
-
+        sum = parseInt(value1) + parseInt(value2);
         return setShowSelection(sum);
     };
 
     const substractValues = (value1, value2) => {
-        sum = value1 - value2; 
-
+        sum = parseInt(value1) - parseInt(value2);
         return setShowSelection(sum);
     };
 
-    const empty = () => {        
-
-        setValue1(0);
-        setValue2(0);
+    const empty = () => {
+        setValue1('');
+        setValue2('');
         setShowSelection(0);
-
     };
 
     return (
         <View style={styles.container}>
             <Text style={styles.line} >Calculator</Text>
-            <Text style={styles.line}>First Number: {value1}</Text>
-            <Text style={styles.line}>Second Number: {value2}</Text>
+            <Value value={value1} setvalue={setValue1} handleInputFocus={handleInputFocus} inputName='value1'/>
+            <Value value={value2} setvalue={setValue2} handleInputFocus={handleInputFocus} inputName='value2'/>
             <Text style={styles.line}>Calculation: {showselection}</Text>
             <View style={styles.numbers}>
-            {number.map((num) => (                
-                <Text style={styles.item} key={num} onPress={() => handleNumberSelect(num)}>
+            {number.map((num, i) => (                
+                <Text style={styles.item} key={i} onPress={() => handleNumberSelect(num)}>
                     {num}
                 </Text>                
             ))}
@@ -65,3 +66,15 @@ const Calculator = () => {
 
 export default Calculator;
 
+const Value = ({value, setvalue, handleInputFocus, inputName}) => {
+    return (
+        <View>
+            <TextInput
+            style={styles.line}
+            value={value.toString()}
+            onChangeText={(text) => setvalue(text)}
+            onFocus={() => handleInputFocus(inputName)}
+            />
+        </View>
+    )
+}
