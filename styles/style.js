@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
         color: '#333',        
         flexWrap: 'wrap',
         backgroundColor: '#c77c19',
+        marginTop: 10,
     },
     item: {
         width: '30%',
@@ -30,17 +31,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         backgroundColor: '#bea481',
-        color: '#fff',
-    },
-    button: {
-        marginVertical: 10,
-        padding: 10,
-        backgroundColor: '#c77c19',
-        borderRadius: 5,
-        textAlign: 'center',
-        fontSize: 16,
-        fontWeight: 'bold',
-        width: 200,
         color: '#fff',
     },
     line: {

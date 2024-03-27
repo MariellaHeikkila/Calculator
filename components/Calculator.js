@@ -57,9 +57,11 @@ const Calculator = () => {
                 </Text>                
             ))}
             </View>
-            <Text style={styles.button} onPress={()=> addValues(value1, value2)}>Add</Text>
-            <Text style={styles.button} onPress={()=> substractValues(value1, value2)}>Substract</Text>
-            <Text style={styles.button} onPress={()=> empty()}>Empty</Text>
+            <View style={styles.numbers}>
+            <Text style={styles.item} onPress={()=> addValues(value1, value2)}>+</Text>
+            <Text style={styles.item} onPress={()=> substractValues(value1, value2)}>-</Text>
+            <Text style={styles.item} onPress={()=> empty()}>Empty</Text>
+            </View>
         </View>
     );
 };
