@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Keyboard } from 'react-native';
 import styles from '../styles/style.js'
 import { TextInput } from 'react-native';
 
@@ -15,15 +15,17 @@ const Calculator = () => {
     const [inputFocus, setInputFocus] = useState('value1');
 
     const handleInputFocus = (input) => {
+        Keyboard.dismiss();
         setInputFocus(input);
+        
     };
 
     const handleNumberSelect =(num) => {
 
         if (inputFocus === 'value1') {
-            setValues(prev => prev + num.toString());
+            setValues(prev => ({ ...prev, value1: prev.value1 + num.toString() }));
         } else if (inputFocus === 'value2') {
-            setValues(prev => prev + num.toString());
+            setValues(prev => ({ ...prev, value2: prev.value2 + num.toString() }));
         }
         
     };
@@ -74,7 +76,7 @@ const Value = ({value, setvalue, handleInputFocus, inputName}) => {
             style={styles.line}
             value={value}
             onChangeText={(text) => setvalue(text)}
-            onFocus={() => handleInputFocus(inputName)}
+            onFocus={() => handleInputFocus(inputName)}            
             />
         </View>
     )
